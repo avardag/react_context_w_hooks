@@ -9,16 +9,21 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles'
-
+import { ThemeContext } from './contexts/ThemeContext';
 
 
 class Navbar extends Component {
-  
+  //context Type, looks for context up in the compnt tree,
+  //and makes it accessible with this.context,
+  //this.context will be obj
+  static contextType = ThemeContext;
+
   render() {
+    const { isDarkMode } = this.context;
     const {classes} = this.props;
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="primary">
+        <AppBar position="static" color={isDarkMode ? "default": "primary"}>
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit">
               <span>
