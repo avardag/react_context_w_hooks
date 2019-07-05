@@ -1,26 +1,25 @@
-import React, { Component, createContext } from 'react';
+import React, { useState, createContext } from 'react';
 
 //create context
 export const ThemeContext = createContext();
 
 // create provider, to be consumed by inner components
-export class ThemeProvider extends Component{
-  state={
-    isDarkMode: true
-  }
+export function ThemeProvider(props) {
+  const [isDarkMode, setIsDarkMode] = useState(true)
+ 
   //methods
-  toggleTheme = () =>{
-    this.setState({isDarkMode: !this.state.isDarkMode})
+  const toggleTheme = () =>{
+    setIsDarkMode(!isDarkMode)
   }
-  render(){
-    return (
-      //can also pass other values apart from state
-      // <ThemeContext.Provider value={{...this.state, isOpen: true}}> 
-      <ThemeContext.Provider value={{...this.state, toggleTheme: this.toggleTheme}}>
-        {this.props.children}
-      </ThemeContext.Provider>
-    )
-  }
+
+  return (
+    //can also pass other values apart from state
+    // <ThemeContext.Provider value={{...this.state, isOpen: true}}> 
+    <ThemeContext.Provider value={{ isDarkMode, toggleTheme}}>
+      {props.children}
+    </ThemeContext.Provider>
+  )
+  
 }
 
 
